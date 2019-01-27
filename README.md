@@ -1,3 +1,5 @@
+Code for https://www.youtube.com/watch?v=aYurQaN3RoE&t=347s, but with the stable version of RxJs.
+
 # AngularRxjs
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
