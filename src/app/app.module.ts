@@ -1,16 +1,12 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-// import {MaterialModule} from '@angular/material';
-
-import {MatToolbarModule, MatInputModule} from '@angular/material';
-
-
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
-import {AppComponent} from './app.component';
+import {MatInputModule} from '@angular/material/input';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -28,5 +24,4 @@ import {AppComponent} from './app.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }

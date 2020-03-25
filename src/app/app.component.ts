@@ -2,7 +2,11 @@ import {Component} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {debounceTime, distinct, filter, map, switchMap} from 'rxjs/operators';
 
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
+
+interface GithubSearchResult {
+  items: { html_url: string }[];
+}
 
 @Component({
   selector: 'app-root',
@@ -12,27 +16,21 @@ import {Subject} from 'rxjs';
 export class AppComponent {
   title = 'Instant Search';
   searchTerm: string;
-  private results: any;
-
-  latestSearch = new Subject<String>();
+  latestSearch$ = new Subject<string>();
+  results$: Observable<string[]>;
 
   constructor(public http: HttpClient) {
-
-    this.results =
-      this.latestSearch.pipe(
+    this.results$ =
+      this.latestSearch$.pipe(
         debounceTime(500),
         distinct(),
         filter(term => !!term),
         switchMap(term =>
-          this.http.get(`https://api.github.com/search/repositories?q=${term}&sort=start&order=desc`)
+          this.http.get<GithubSearchResult>(`https://api.github.com/search/repositories?q=${term}&sort=start&order=desc`)
             .pipe(
-              map(res => res['items'].map(item => `${item.html_url}`))
+              map(res => res.items.map(item => `${item.html_url}`))
             )
-      )
+        )
       );
-  }
-
-  newSearch(term) {
-    this.latestSearch.next(term);
   }
 }

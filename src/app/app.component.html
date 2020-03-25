@@ -5,11 +5,11 @@
 <section>
   <mat-form-field>
     <input matInput placeholder="search" type="search" [(ngModel)]="searchTerm"
-           (ngModelChange)="newSearch(searchTerm)"/>
+           (ngModelChange)="this.latestSearch$.next(searchTerm)"/>
   </mat-form-field>
 
-  <div *ngFor="let result of results | async">
-    {{result}}
+  <div *ngFor="let result of results$ | async">
+    <a href="{{result}}">{{result}}</a>
   </div>
 </section>
 
